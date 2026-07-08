@@ -20,8 +20,8 @@
 //    y pégala en inicio.html como valor de EVIDENCIA_APPS_SCRIPT_URL.
 // ================================================================
 
-const SHEET_ID  = 'PEGA_AQUI_EL_ID_DE_LA_SHEET';
-const FOLDER_ID = 'PEGA_AQUI_EL_ID_DE_LA_CARPETA_DRIVE';
+const SHEET_ID  = '1ddBbevAXndIvj4kQRBEKd-mh1yMM6Pb7ejK5vGTVPwg';
+const FOLDER_ID = '1SvxhgcO20DKlAkhQq3eq_f65jykXVt-4';
 const SHEET_NAME = 'Datos';
 const HEADERS = ['timestamp', 'nombre', 'correo', 'sede', 'herramienta', 'descripcion', 'archivo_nombre', 'archivo_url'];
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB, debe coincidir con EVID_MAX_BYTES en inicio.html
