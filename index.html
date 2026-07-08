@@ -32,8 +32,8 @@
 
   /* ================= HEADER ================= */
   header{
-    background:var(--navy); color:#EAF1F6;
-    border-bottom:1px solid var(--hairline-2);
+    background:#fff; color:var(--ink);
+    border-bottom:1px solid var(--hairline);
     position:sticky; top:0; z-index:30;
   }
   .header-row{
@@ -41,17 +41,17 @@
   }
   .header-row img{ height:30px; }
   .brand small{
-    display:block; font-size:11px; letter-spacing:.08em; color:#9FB6C9;
+    display:block; font-size:11px; letter-spacing:.08em; color:var(--muted);
     font-family:"IBM Plex Mono", monospace; margin-top:2px;
   }
-  .brand strong{ font-size:16px; font-weight:600; }
+  .brand strong{ font-size:16px; font-weight:600; color:var(--navy); }
   .header-nav{ margin-left:auto; display:flex; gap:28px; }
   .header-nav a{
     font-size:12.5px; font-weight:600; letter-spacing:.04em;
-    text-decoration:none; color:#BFD3E1;
+    text-decoration:none; color:var(--muted);
     text-transform:uppercase;
   }
-  .header-nav a:hover{ color:#fff; }
+  .header-nav a:hover{ color:var(--navy); }
 
   /* ================= HERO (dossier cover) ================= */
   .cover{
@@ -258,6 +258,9 @@
     text-align:center; padding:22px 0; font-size:11.5px;
     font-family:"IBM Plex Mono", monospace; letter-spacing:.02em;
   }
+  .footer-sub{
+    display:block; margin-top:6px; font-size:10px; color:#6E88A0;
+  }
 
   /* --- Evidencia de uso: formulario --- */
   .evid-card{
@@ -304,7 +307,7 @@
 <header>
   <div class="wrap header-row">
     <img src="Logo-UDES-EQUAA_azul.png" alt="UDES" onerror="this.style.display='none'">
-    <div class="brand"><strong>IA Generativa</strong><small>USO COTIDIANO · UDES 2026</small></div>
+    <div class="brand"><strong>IA Generativa</strong><small>OFICINA DE PLANEACIÓN INSTITUCIONAL · UDES 2026</small></div>
     <nav class="header-nav">
       <a href="#sobre">Sobre el curso</a>
       <a href="#materiales">Materiales</a>
@@ -537,7 +540,10 @@
   </div>
 </section>
 
-<footer>UNIVERSIDAD DE SANTANDER · UDES — USO COTIDIANO DE IA EN TAREAS ADMINISTRATIVAS</footer>
+<footer>
+  UNIVERSIDAD DE SANTANDER · UDES — USO COTIDIANO DE IA EN TAREAS ADMINISTRATIVAS
+  <span class="footer-sub">© 2026 Universidad de Santander (UDES). Todos los derechos reservados. · Capacitador: Leonardo Pinto</span>
+</footer>
 
 <script>
   document.querySelectorAll('.folder').forEach(card=>{
