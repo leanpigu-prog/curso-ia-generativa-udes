@@ -238,6 +238,57 @@
     padding:6px 9px;
   }
 
+  /* --- Recursos visuales: galería + visor --- */
+  .resource-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:8px; }
+  @media (max-width:820px){ .resource-grid{ grid-template-columns:1fr; } }
+  .resource-card{
+    background:#fff; border:1px solid var(--hairline); border-radius:2px;
+    overflow:hidden; box-shadow:0 1px 0 var(--hairline);
+    display:flex; flex-direction:column;
+  }
+  .resource-thumb{
+    position:relative; height:170px; overflow:hidden; cursor:pointer;
+    background:var(--paper);
+  }
+  .resource-thumb img{
+    width:100%; height:100%; object-fit:cover; object-position:top;
+    display:block; transition:transform .3s ease;
+  }
+  .resource-thumb:hover img{ transform:scale(1.04); }
+  .resource-thumb::after{
+    content:"⛶ Ver completa"; position:absolute; right:10px; bottom:10px;
+    font-family:"IBM Plex Mono", monospace; font-size:10.5px; letter-spacing:.05em;
+    color:#fff; background:rgba(15,42,67,.82); padding:5px 9px; border-radius:2px;
+  }
+  .resource-body{ padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px; flex-grow:1; }
+  .resource-body h3{ font-family:"Fraunces", serif; font-size:16.5px; margin:0; }
+  .resource-body p{ font-size:13px; color:var(--muted); line-height:1.55; margin:0; flex-grow:1; }
+
+  #lightbox{
+    display:none; position:fixed; inset:0; z-index:100;
+    background:rgba(9,20,32,.92);
+    align-items:center; justify-content:center;
+  }
+  #lightbox.open{ display:flex; }
+  #lightbox figure{ margin:0; max-width:92vw; max-height:88vh; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  #lightbox img{ max-width:92vw; max-height:78vh; object-fit:contain; border:1px solid rgba(255,255,255,.15); background:#fff; }
+  #lightbox figcaption{
+    font-family:"IBM Plex Mono", monospace; font-size:12px; letter-spacing:.04em;
+    color:#C6D6E2; text-align:center;
+  }
+  .lb-btn{
+    position:absolute; display:flex; align-items:center; justify-content:center;
+    width:42px; height:42px; border-radius:50%;
+    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25);
+    color:#fff; font-size:18px; cursor:pointer;
+  }
+  .lb-btn:hover{ background:rgba(255,255,255,.2); }
+  .lb-close{ top:20px; right:24px; }
+  .lb-fullscreen{ top:20px; right:78px; }
+  .lb-prev{ left:24px; top:50%; transform:translateY(-50%); }
+  .lb-next{ right:24px; top:50%; transform:translateY(-50%); }
+  @media (max-width:600px){ .lb-fullscreen{ display:none; } }
+
   /* --- Próximamente: sealed envelopes --- */
   .envelopes{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:8px; }
   @media (max-width:820px){ .envelopes{ grid-template-columns:1fr; } }
@@ -329,6 +380,7 @@
       <a href="#sobre">Sobre el curso</a>
       <a href="#video">Video</a>
       <a href="#materiales">Materiales</a>
+      <a href="#recursos">Recursos</a>
       <a href="#evidencia">Evidencia de uso</a>
       <a href="#proximamente">Próximamente</a>
     </nav>
@@ -502,6 +554,45 @@
   </div>
 </section>
 
+<!-- ================= RECURSOS VISUALES ================= -->
+<section id="recursos">
+  <div class="wrap">
+    <div class="eyebrow">Recursos</div>
+    <h2 class="title">Guías rápidas para consultar</h2>
+    <p class="dek">Tres infografías de apoyo. Haz clic en cualquiera para abrirla en grande y usa el botón ⛶ para verla a pantalla completa.</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="resource-thumb" data-lightbox="0">
+          <img src="Instrucciones.png" alt="Rol: validador de datos y analista crítico estricto">
+        </div>
+        <div class="resource-body">
+          <h3>Framework de rol para prompts</h3>
+          <p>Ejemplo de instrucción de "rol" para pedirle a la IA precisión, verificación de datos y objetividad sin complacencia.</p>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-thumb" data-lightbox="1">
+          <img src="TokensymodelosdeIA_1.png" alt="Tokens y modelos de IA, explicación fácil">
+        </div>
+        <div class="resource-body">
+          <h3>Tokens y modelos de IA</h3>
+          <p>Qué es un modelo, qué es un token y qué es la ventana de contexto, explicado en un solo vistazo.</p>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-thumb" data-lightbox="2">
+          <img src="TokensymodelosdeIA_2.png" alt="Qué pasa cuando se agotan los tokens en Gemini">
+        </div>
+        <div class="resource-body">
+          <h3>Cuando se agotan los tokens en Gemini</h3>
+          <p>Casos prácticos: contenido demasiado grande, respuesta incompleta, cuota agotada — y qué hacer en cada uno.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= EVIDENCIA DE USO ================= -->
 <section id="evidencia">
   <div class="wrap">
@@ -581,10 +672,76 @@
   </div>
 </section>
 
+<div id="lightbox">
+  <button class="lb-btn lb-close" id="lb-close" aria-label="Cerrar">&times;</button>
+  <button class="lb-btn lb-fullscreen" id="lb-fullscreen" aria-label="Pantalla completa">&#9974;</button>
+  <button class="lb-btn lb-prev" id="lb-prev" aria-label="Anterior">&#8249;</button>
+  <button class="lb-btn lb-next" id="lb-next" aria-label="Siguiente">&#8250;</button>
+  <figure>
+    <img id="lb-img" src="" alt="">
+    <figcaption id="lb-caption"></figcaption>
+  </figure>
+</div>
+
 <footer>
   UNIVERSIDAD DE SANTANDER · UDES — USO COTIDIANO DE IA EN TAREAS ADMINISTRATIVAS
   <span class="footer-sub">© 2026 Universidad de Santander (UDES). Todos los derechos reservados. · Capacitador: Leonardo Pinto</span>
 </footer>
+
+<!-- ================= RECURSOS VISUALES: visor (lightbox) ================= -->
+<script>
+  (function(){
+    const recursos = [
+      { src:'Instrucciones.png', caption:'Framework de rol para prompts' },
+      { src:'TokensymodelosdeIA_1.png', caption:'Tokens y modelos de IA' },
+      { src:'TokensymodelosdeIA_2.png', caption:'Cuando se agotan los tokens en Gemini' }
+    ];
+    let indiceActual = 0;
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCaption = document.getElementById('lb-caption');
+
+    function mostrar(indice){
+      indiceActual = (indice + recursos.length) % recursos.length;
+      const r = recursos[indiceActual];
+      lbImg.src = r.src;
+      lbImg.alt = r.caption;
+      lbCaption.textContent = r.caption;
+    }
+
+    function abrir(indice){
+      mostrar(indice);
+      lightbox.classList.add('open');
+    }
+
+    function cerrar(){
+      lightbox.classList.remove('open');
+      if(document.fullscreenElement){ document.exitFullscreen(); }
+    }
+
+    document.querySelectorAll('[data-lightbox]').forEach(thumb=>{
+      thumb.addEventListener('click', ()=> abrir(parseInt(thumb.getAttribute('data-lightbox'), 10)));
+    });
+
+    document.getElementById('lb-close').addEventListener('click', cerrar);
+    document.getElementById('lb-prev').addEventListener('click', ()=> mostrar(indiceActual - 1));
+    document.getElementById('lb-next').addEventListener('click', ()=> mostrar(indiceActual + 1));
+    document.getElementById('lb-fullscreen').addEventListener('click', ()=>{
+      if(!document.fullscreenElement){ lightbox.requestFullscreen(); }
+      else{ document.exitFullscreen(); }
+    });
+
+    lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) cerrar(); });
+
+    document.addEventListener('keydown', (e)=>{
+      if(!lightbox.classList.contains('open')) return;
+      if(e.key === 'Escape') cerrar();
+      if(e.key === 'ArrowLeft') mostrar(indiceActual - 1);
+      if(e.key === 'ArrowRight') mostrar(indiceActual + 1);
+    });
+  })();
+</script>
 
 <script>
   document.querySelectorAll('.folder').forEach(card=>{
